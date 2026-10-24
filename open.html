@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>이웃 Ai 열기</title>
+<style>
+:root{color-scheme:light dark;--fg:#1d1f24;--sub:#5d6370;--line:#e3e6eb;--bg:#fff;--accent:#4483EC}
+@media (prefers-color-scheme:dark){:root{--fg:#eef0f4;--sub:#a5abb8;--line:#2c3038;--bg:#121418}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+main{max-width:520px;margin:0 auto;padding:48px 16px;text-align:center}
+h1{font-size:24px;margin:8px 0}p{color:var(--sub)}
+a.btn{display:block;margin:20px 0 8px;padding:14px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;text-decoration:none}
+.code{font-weight:800;color:var(--fg)}
+</style></head><body><main>
+<p style="color:var(--accent);font-weight:800">이웃 Ai</p>
+<h1 id="t">앱에서 여는 중…</h1>
+<p id="d">이웃 Ai 앱이 설치되어 있으면 바로 열립니다.</p>
+<a class="btn" id="go" href="#">이웃 Ai 앱에서 열기</a>
+<p id="ref"></p>
+<p>앱이 없으면 설치한 뒤 이 QR 을 다시 찍어 주세요.<br>문의 dong5084@naver.com</p>
+</main>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var to=q.get('to')||'/';
+  var ref=q.get('ref');
+  if(ref){to='/biz-apply?ref='+encodeURIComponent(ref);}
+  if(to.charAt(0)!=='/'){to='/';}
+  var m=to.match(/ref=([^&]+)/);
+  if(m){document.getElementById('t').textContent='이웃 Ai 업체 등록';document.getElementById('ref').innerHTML='추천 코드 <span class="code">'+decodeURIComponent(m[1]).replace(/[<>&"]/g,'')+'</span> 가 자동으로 들어갑니다.';}
+  var path=to.slice(1);
+  var android=/android/i.test(navigator.userAgent);
+  var url=android?'intent://'+path+'#Intent;scheme=iutai;package=com.iutai.app;end':'iutai://'+path;
+  document.getElementById('go').href=url;
+  setTimeout(function(){location.href=url;},300);
+})();
+</script>
+</body></html>
